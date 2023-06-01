@@ -1,12 +1,27 @@
-import { Controller, Get } from '@nestjs/common';
+import {Controller, Get, Query, UseGuards} from '@nestjs/common';
 import { AppService } from './app.service';
+import {AuthGuard} from "@nestjs/passport";
+
+interface ParsedData {
+  Cube: Array<{ Cube: Array<{ Cube: Array<{ $: CurrencyRate }> }> }>;
+}
+
+interface CurrencyRate{
+  currency: string;
+  rate: number;
+}
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
+  @UseGuards(AuthGuard('bearer'))
+  getHello(@Query('url')url: string,
+           @Query('currency')currency?: string,
+           @Query('minRate')minRate?:number,
+           @Query('maxRate')maxRate?:number
+  ): Promise<CurrencyRate[]> {
+
+    return this.appService.transformXNLtoJSON(url,currency, minRate, maxRate);}
 }
