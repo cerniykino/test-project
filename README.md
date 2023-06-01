@@ -39,7 +39,7 @@ http://localhost:3000/?url=https://www.ecb.europa.eu/stats/eurofxref/eurofxref-d
 ## Query Parameters
 
 + url - from which URL you want to parse XML data
-+ currency - filter depend on currency
-+ minRate - minimal rate for filter data
-+ maxRate - maximal rate for filter data
++ currency - filtering based on currency
++ minRate - minimal rate(exchange) for data filtering
++ maxRate - maximal rate(exchange) for data filtering
 
